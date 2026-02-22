@@ -85,7 +85,7 @@ def bencode(data):
     else:
         return ValueError(f"Unsupported type of bencoding {type(data)}")
 
-with open('../torrent/kali-linux-2025.4-live-amd64.iso.torrent','rb') as torrent:
+with open('./torrent/kali-linux-2025.4-live-amd64.iso.torrent','rb') as torrent:
     data=torrent.read()
 
 decoded=bdecode(data)
