@@ -60,8 +60,30 @@ def bdecode(data):
     # return result
 
 def bencode(data):
-    result=""
-    return result
+    if isinstance(data,int):
+        return b'i'+str(data).encode()+b'e'
+    elif isinstance(data,str):
+        data=data.encode('utf-8')
+        return str(len(data)).encode()+b':'+data
+    elif isinstance(data,bytes): 
+        return str(len(data)).encode()+b':'+data
+    elif isinstance(data,list):
+        result=[b'l']
+        for item in data:
+            result.append(bencode(item))
+        result.append(b'e')
+        return b''.join(result)
+    elif isinstance(data,dict):
+        result=[b'd']
+        for key in sorted(data.keys):
+            if not isinstance(key, bytes):
+                key = key.encode('utf-8')  # Convert string keys to bytes
+            result.append(bencode(key))
+            result.append(bencode(data[key]))
+        result.append(b'e')
+        return b''.join(result)
+    else:
+        return ValueError(f"Unsupported type of bencoding {type(data)}")
 
 with open('../torrent/kali-linux-2025.4-live-amd64.iso.torrent','rb') as torrent:
     data=torrent.read()
