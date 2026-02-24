@@ -75,7 +75,7 @@ def bencode(data):
         return b''.join(result)
     elif isinstance(data,dict):
         result=[b'd']
-        for key in sorted(data.keys):
+        for key in sorted(data.keys()):
             if not isinstance(key, bytes):
                 key = key.encode('utf-8')  # Convert string keys to bytes
             result.append(bencode(key))
@@ -85,8 +85,8 @@ def bencode(data):
     else:
         return ValueError(f"Unsupported type of bencoding {type(data)}")
 
-with open('./torrent/kali-linux-2025.4-live-amd64.iso.torrent','rb') as torrent:
+with open('../torrent/kali-linux-2025.4-live-amd64.iso.torrent','rb') as torrent:
     data=torrent.read()
 
-decoded=bdecode(data)
-pprint.pprint(decoded)
+# decoded=bdecode(data)
+# pprint.pprint(decoded)
