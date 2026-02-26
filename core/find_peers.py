@@ -107,10 +107,8 @@ if __name__ == "__main__":
     try:
         peers = get_peers('../torrent/kali-linux-2025.4-live-amd64.iso.torrent')
         print(f"\nFound {len(peers)} peers from tracker:")
-        for ip, port in peers[:10]:
+        for ip, port in peers[:50]:
             print(f"  {ip}:{port}")
-        if len(peers) > 10:
-            print(f"  ... and {len(peers) - 10} more")
     except Exception as e:
         print(f"Error: {e}")
         import traceback
